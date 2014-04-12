@@ -101,7 +101,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OrcadWnd.h" />
+    <ClInclude Include="Orcad\OrcadWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SystemTray.h" />
@@ -110,7 +110,7 @@
     <ClInclude Include="TBDOSBOXDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OrcadWnd.cpp" />
+    <ClCompile Include="Orcad\OrcadWnd.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
