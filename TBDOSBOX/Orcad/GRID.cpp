@@ -6,7 +6,8 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "grid.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- CODE -------------------------------------------------------------- */
 
@@ -16,7 +17,7 @@
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawGridDots(unsigned short spacing)
+void COrcadWnd::DrawGridDots(unsigned short spacing)
 {
 	int i;
 	int j;
@@ -50,7 +51,7 @@ void DrawGridDots(unsigned short spacing)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawGridDotsRelative(unsigned short spacing, unsigned short dx,
+void COrcadWnd::DrawGridDotsRelative(unsigned short spacing, unsigned short dx,
 	unsigned short dy)
 {
 	int i;

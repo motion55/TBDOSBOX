@@ -11,6 +11,8 @@ public:
 	COrcadWnd();
 	virtual ~COrcadWnd();
 
+	#define	PUTPIXEL(a, b)	SetPixel(hdcMemoryBuffer, a, b, RGBPalette[MapMask]);
+
 	// Bitmap	////////////////////////////////////////////////
 
 	/* -- PUBLIC FUNCTION DECLARATIONS -------------------------------------- */
@@ -200,6 +202,43 @@ public:
 	BOOL bDelayDraw;
 	int RedrawTimer;
 
+	/* -- PUBLIC DATA DEFINITIONS ------------------------------------------- */
+
+	unsigned char CursorStyle = 0;
+	unsigned char CursorState = 0;
+	unsigned short CursorScreenX = 0;
+	unsigned short CursorScreenY = 0;
+
+	unsigned char Color;
+	unsigned short Scale;
+	unsigned short Zoom = 0;
+	unsigned short ZoomScrollX = 0;
+	unsigned short ZoomScrollY = 0;
+	unsigned short DrawingPositionX;
+	unsigned short DrawingPositionY;
+	short WindowStartX;
+	short WindowStartY;
+	short WindowEndX;
+	short WindowEndY;
+	unsigned short WindowOriginX;
+	unsigned short WindowOriginY;
+	long WindowStartX32;
+	long WindowStartY32;
+	long WindowEndX32;
+	long WindowEndY32;
+	unsigned long Scale32;
+	unsigned long Scale32Div2;
+	unsigned char Mode;
+	bool CharSetSpecial;
+	bool CharSetIEEE;
+	unsigned char MapMask;
+	int LineDrawingMode;
+	int TopOfWindowStateStack;
+	unsigned char Palette[16];
+	struct WindowState WindowStateStack[8];
+
+	HPEN hPen = NULL;
+
 	//	Video	////////////////////////////////////////////////
 
 	#define Redraw()	{if (!RedrawTimer) RedrawTimer=10;}
@@ -230,6 +269,63 @@ public:
 		);
 
 protected:
+	short clipxa, clipya, clipxb, clipyb;
+
+	HDC    	hdcSavedCursor;
+	HBITMAP	hbmSavedCursor;
+
+	COLORREF CursorBackground[CURSOR_VSIZE][CURSOR_HSIZE];
+
+	unsigned short CursorPositionX;
+	unsigned short CursorPositionY;
+	unsigned int CursorVisibleColumns = 0;
+	unsigned int CursorVisibleRows = 0;
+
+	HDC hdcSavedRect;
+	HBITMAP hbmSavedRect;
+
+	short RectangleStartX;
+	short RectangleStartY;
+	short RectangleEndX;
+	short RectangleEndY;
+
+	unsigned char TextBuffer[256];
+
+	void ClpPixel(short x, short y);
+	void Translate2(short *const x, short *const y);
+
+	unsigned char GetQuadrant(long xc, long yc,
+		long *const x, long *const y, long radius);
+	void DrawArc(long xc, long yc, long xa, long ya, long xb, long yb,
+		long radius, long thickness);
+	void PutPixel32(long x, long y);
+	void DrawCircleOctants(short dx, short dy, unsigned short distance,
+		int type);
+	void FillCircleOctants(short dx, short dy, unsigned short distance,
+		int type);
+	void DrawCirclePoint(short dx, short dy);
+	void DrawCircleLine(short dx, short dy);
+
+	void DrawCursor(unsigned short x, unsigned short y,
+		unsigned int cols, unsigned int rows);
+	void SaveCursorBackground(unsigned short x, unsigned short y,
+		unsigned int cols, unsigned int rows);
+	void RestoreCursorBackground(short x, short y,
+		unsigned int cols, unsigned int rows);
+
+	bool ClipLine(short *const xa, short *const ya,
+		short *const xb, short *const yb);
+	unsigned char GetOutcode(short x, short y);
+	void DrawSolidLine(unsigned short xa, unsigned short ya,
+		unsigned short xb, unsigned short yb);
+	void DrawDashedLine(unsigned short xa, unsigned short ya,
+		unsigned short xb, unsigned short yb);
+	void DrawWideLine(short xa, short ya, short xb, short yb,
+		short thickness, unsigned char fillType);
+	void DrawGridDots32(long spacing, long divisor);
+
+	int ClipRectangle(short *xa, short *ya, short *xb, short *yb);
+
 	DECLARE_MESSAGE_MAP()
 };
 

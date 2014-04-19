@@ -6,21 +6,10 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "circle.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PRIVATE FUNCTION DECLARATIONS ------------------------------------- */
-
-static unsigned char GetQuadrant(long xc, long yc,
-	long *const x, long *const y, long radius);
-static void DrawArc(long xc, long yc, long xa, long ya, long xb, long yb,
-	long radius, long thickness);
-static void PutPixel32(long x, long y);
-static void DrawCircleOctants(short dx, short dy, unsigned short distance,
-	int type);
-static void FillCircleOctants(short dx, short dy, unsigned short distance,
-	int type);
-static void DrawCirclePoint(short dx, short dy);
-static void DrawCircleLine(short dx, short dy);
 
 /* -- CODE -------------------------------------------------------------- */
 
@@ -30,7 +19,7 @@ static void DrawCircleLine(short dx, short dy);
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawArcAbsolute(short xc, short yc, short endxa, short endya,
+void COrcadWnd::DrawArcAbsolute(short xc, short yc, short endxa, short endya,
 	short endxb, short endyb, unsigned short radius,
 	unsigned short thickness)
 {
@@ -204,7 +193,7 @@ void DrawArcAbsolute(short xc, short yc, short endxa, short endya,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawWideArcAbsolute32(long xc, long yc, long xa, long ya,
+void COrcadWnd::DrawWideArcAbsolute32(long xc, long yc, long xa, long ya,
 	long xb, long yb, unsigned long radius, unsigned long thickness,
 	const unsigned char fillMode)
 {
@@ -296,7 +285,7 @@ void DrawWideArcAbsolute32(long xc, long yc, long xa, long ya,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleAbsolute(short x, short y,
+void COrcadWnd::DrawCircleAbsolute(short x, short y,
 	unsigned short xsize, unsigned short ysize, unsigned char fill)
 {
 	int type;
@@ -400,7 +389,7 @@ void DrawCircleAbsolute(short x, short y,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleRelative(short dx, short dy, unsigned short radiusX,
+void COrcadWnd::DrawCircleRelative(short dx, short dy, unsigned short radiusX,
 	unsigned short radiusY,	unsigned char fillStyle)
 {
 	DrawCircleAbsolute((DrawingPositionX + dx), (DrawingPositionY + dy),
@@ -414,7 +403,7 @@ void DrawCircleRelative(short dx, short dy, unsigned short radiusX,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCirclePoint32(long x, long y)
+void COrcadWnd::DrawCirclePoint32(long x, long y)
 {
 	if ((x < WindowStartX32) || (x > WindowEndX32)
 	||  (y < WindowStartY32) || (y > WindowEndY32)) {
@@ -439,7 +428,7 @@ void DrawCirclePoint32(long x, long y)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleSector32(long xc, long yc, long dx, long dy, int sector,
+void COrcadWnd::DrawCircleSector32(long xc, long yc, long dx, long dy, int sector,
 	unsigned char fill)
 {
 	long t;
@@ -481,7 +470,7 @@ void DrawCircleSector32(long xc, long yc, long dx, long dy, int sector,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleAbsolute32(long xc, long yc, long radius,
+void COrcadWnd::DrawCircleAbsolute32(long xc, long yc, long radius,
 					unsigned char fillType)
 {
 	long dx;
@@ -559,7 +548,7 @@ static long DrawingPositionY32;
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleOctants32(long dx, long dy)
+void COrcadWnd::DrawCircleOctants32(long dx, long dy)
 {
 	if (Scale32 > 1) {
 		dx *= Scale32;
@@ -582,7 +571,7 @@ void DrawCircleOctants32(long dx, long dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void FillCircleLine32(long dx, long dy)
+void COrcadWnd::FillCircleLine32(long dx, long dy)
 {
 	long xn;
 	long xp;
@@ -634,7 +623,7 @@ void FillCircleLine32(long dx, long dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleAbsolute32(long xc, long yc, long radius,
+void COrcadWnd::DrawCircleAbsolute32(long xc, long yc, long radius,
 					unsigned char fillType)
 {
 	long dx;
@@ -705,7 +694,7 @@ void DrawCircleAbsolute32(long xc, long yc, long radius,
 /*                                                                        */
 /* ====================================================================== */
 
-void PutPixel32(long x, long y)
+void COrcadWnd::PutPixel32(long x, long y)
 {
 	if ((x < WindowStartX32) || (x > WindowEndX32)
 	||  (y < WindowStartY32) || (y > WindowEndY32)) {
@@ -727,7 +716,7 @@ void PutPixel32(long x, long y)
 /*                                                                        */
 /* ====================================================================== */
 
-unsigned char GetQuadrant(long xc, long yc,
+unsigned char COrcadWnd::GetQuadrant(long xc, long yc,
 	long *const x, long *const y, long radius)
 {
 	unsigned char quadrant;
@@ -759,7 +748,7 @@ unsigned char GetQuadrant(long xc, long yc,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawArc(long xc, long yc, long xa, long ya, long xb, long yb,
+void COrcadWnd::DrawArc(long xc, long yc, long xa, long ya, long xb, long yb,
 	long radius, long thickness)
 {
 	long mulX;
@@ -901,7 +890,7 @@ void DrawArc(long xc, long yc, long xa, long ya, long xb, long yb,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleOctants(short dx, short dy, unsigned short distance, int type)
+void COrcadWnd::DrawCircleOctants(short dx, short dy, unsigned short distance, int type)
 {
 	BeginDraw();
 	if (type == 0) {
@@ -941,7 +930,7 @@ void DrawCircleOctants(short dx, short dy, unsigned short distance, int type)
 /*                                                                        */
 /* ====================================================================== */
 
-void FillCircleOctants(short dx, short dy, unsigned short distance, int type)
+void COrcadWnd::FillCircleOctants(short dx, short dy, unsigned short distance, int type)
 {
 	if (type == 0) {
 		DrawCircleLine(dx, dy);
@@ -966,7 +955,7 @@ void FillCircleOctants(short dx, short dy, unsigned short distance, int type)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCirclePoint(short dx, short dy)
+void COrcadWnd::DrawCirclePoint(short dx, short dy)
 {
 	short x;
 	short y;
@@ -997,7 +986,7 @@ void DrawCirclePoint(short dx, short dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCircleLine(short dx, short dy)
+void COrcadWnd::DrawCircleLine(short dx, short dy)
 {
 	short x;
 	short y;

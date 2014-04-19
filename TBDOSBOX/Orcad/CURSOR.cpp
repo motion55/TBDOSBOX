@@ -6,21 +6,12 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "cursor.h"
-
-/* -- PUBLIC DATA DEFINITIONS ------------------------------------------- */
-
-unsigned char CursorStyle = 0;
-unsigned char CursorState = 0;
-unsigned short CursorScreenX = 0;
-unsigned short CursorScreenY = 0;
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PRIVATE DATA DEFINITIONS ------------------------------------------ */
 
-static HDC hdcSavedCursor;
-static HBITMAP hbmSavedCursor;
-
-static unsigned char Cursor[CURSOR_VSIZE][CURSOR_HSIZE] = {
+static unsigned const char Cursor[CURSOR_VSIZE][CURSOR_HSIZE] = {
 	0x0f, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 	0x0f, 0x0f, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff,
 	0x0f, 0x0f, 0x0f, 0x00, 0xff, 0xff, 0xff, 0xff,
@@ -38,21 +29,7 @@ static unsigned char Cursor[CURSOR_VSIZE][CURSOR_HSIZE] = {
 	0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00
 };
 
-static COLORREF CursorBackground[CURSOR_VSIZE][CURSOR_HSIZE];
-
-static unsigned short CursorPositionX;
-static unsigned short CursorPositionY;
-static unsigned int CursorVisibleColumns = 0;
-static unsigned int CursorVisibleRows = 0;
-
 /* -- PRIVATE FUNCTION DECLARATIONS ------------------------------------- */
-
-static void DrawCursor(unsigned short x, unsigned short y,
-	unsigned int cols, unsigned int rows);
-static void SaveCursorBackground(unsigned short x, unsigned short y,
-	unsigned int cols, unsigned int rows);
-static void RestoreCursorBackground(short x, short y,
-	unsigned int cols, unsigned int rows);
 
 /* -- CODE -------------------------------------------------------------- */
 
@@ -62,7 +39,7 @@ static void RestoreCursorBackground(short x, short y,
 /*                                                                        */
 /* ====================================================================== */
 
-void InitCursor(void)
+void COrcadWnd::InitCursor(void)
 {
 	hdcSavedCursor = CreateCompatibleDC(hdcWindow);
 	hbmSavedCursor = CreateCompatibleBitmap(hdcWindow,
@@ -76,7 +53,7 @@ void InitCursor(void)
 /*                                                                        */
 /* ====================================================================== */
 
-void UnloadCursor(void)
+void COrcadWnd::UnloadCursor(void)
 {
 	DeleteDC(hdcSavedCursor);
 	DeleteObject(hbmSavedCursor);
@@ -88,7 +65,7 @@ void UnloadCursor(void)
 /*                                                                        */
 /* ====================================================================== */
 
-void SetCursorState(unsigned char state, short x, short y)
+void COrcadWnd::SetCursorState(unsigned char state, short x, short y)
 {
 	if ((CursorVisibleRows > 0) && (CursorVisibleRows > 0)) {
 		RestoreCursorBackground(CursorPositionX, CursorPositionY,
@@ -180,7 +157,7 @@ void SetCursorState(unsigned char state, short x, short y)
 /*                                                                        */
 /* ====================================================================== */
 
-unsigned char SetCursorStyle(unsigned char newStyle)
+unsigned char COrcadWnd::SetCursorStyle(unsigned char newStyle)
 {
 	unsigned char oldStyle;
 
@@ -195,7 +172,7 @@ unsigned char SetCursorStyle(unsigned char newStyle)
 /*   ZoomScroll                                                           */
 /*                                                                        */
 /* ====================================================================== */
-void ZoomScroll(void)
+void COrcadWnd::ZoomScroll(void)
 {
 	short X, Y;
 
@@ -252,7 +229,7 @@ void ZoomScroll(void)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawCursor(unsigned short x, unsigned short y,
+void COrcadWnd::DrawCursor(unsigned short x, unsigned short y,
 	unsigned int cols, unsigned int rows)
 {
 	unsigned int i;
@@ -305,7 +282,7 @@ void DrawCursor(unsigned short x, unsigned short y,
 /*                                                                        */
 /* ====================================================================== */
 
-void SaveCursorBackground(unsigned short x, unsigned short y,
+void COrcadWnd::SaveCursorBackground(unsigned short x, unsigned short y,
 	unsigned int cols, unsigned int rows)
 {
 	CursorScreenX = x;
@@ -323,7 +300,7 @@ void SaveCursorBackground(unsigned short x, unsigned short y,
 /*                                                                        */
 /* ====================================================================== */
 
-void RestoreCursorBackground(short x, short y,
+void COrcadWnd::RestoreCursorBackground(short x, short y,
 	unsigned int cols, unsigned int rows)
 {
 	short X, Y;

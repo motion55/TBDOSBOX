@@ -112,7 +112,17 @@
     <ClInclude Include="TBDOSBOXDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Orcad\BITMAP.cpp" />
+    <ClCompile Include="Orcad\CIRCLE.cpp" />
+    <ClCompile Include="Orcad\CURSOR.cpp" />
+    <ClCompile Include="Orcad\DRIVER.cpp" />
+    <ClCompile Include="Orcad\GRID.cpp" />
+    <ClCompile Include="Orcad\LINE.cpp" />
     <ClCompile Include="Orcad\OrcadWnd.cpp" />
+    <ClCompile Include="Orcad\RECTNGLE.cpp" />
+    <ClCompile Include="Orcad\STATE.cpp" />
+    <ClCompile Include="Orcad\TEXT.cpp" />
+    <ClCompile Include="Orcad\VIDEO.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

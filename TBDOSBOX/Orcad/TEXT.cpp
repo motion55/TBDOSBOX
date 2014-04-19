@@ -6,24 +6,14 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "text.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PRIVATE DATA DEFINITIONS ------------------------------------------ */
 
-static unsigned char TextBuffer[256];
-
 /* -- PRIVATE FUNCTION DECLARATIONS ------------------------------------- */
 
-static void DrawFixedString(const unsigned char *string,
-	unsigned short length, short xa, short ya);
-static void DrawFixedCharacter(unsigned char ch, short x, short y,
-	int firstRow, int lastRow, int firstColumn, int lastColumn);
-static void DrawVariableCharacter(unsigned char ch,
-	short *x, short *y, short scale);
-
 /* -- CODE -------------------------------------------------------------- */
-
-#define	PUTPIXEL(a, b)	SetPixel(hdcMemoryBuffer, a, b, RGBPalette[MapMask]);
 
 /* ====================================================================== */
 /*                                                                        */
@@ -32,7 +22,7 @@ static void DrawVariableCharacter(unsigned char ch,
 /* ====================================================================== */
 
 /* verified */
-void PrintDriverInfo()
+void COrcadWnd::PrintDriverInfo()
 {
 	char *p;
 	unsigned short size;
@@ -60,7 +50,7 @@ void PrintDriverInfo()
 /* ====================================================================== */
 
 /* verified */
-void DrawFixedStringAbsolute(unsigned short length,
+void COrcadWnd::DrawFixedStringAbsolute(unsigned short length,
 	const unsigned char *string, short x, short y)
 {
 	unsigned short i;
@@ -94,7 +84,7 @@ void DrawFixedStringAbsolute(unsigned short length,
 /* ====================================================================== */
 
 /* verified */
-void DrawFixedStringRelative(unsigned short length,
+void COrcadWnd::DrawFixedStringRelative(unsigned short length,
 	const unsigned char *string, short dx, short dy)
 {
 	short x;
@@ -113,7 +103,7 @@ void DrawFixedStringRelative(unsigned short length,
 /* ====================================================================== */
 
 /* verified */
-void DrawVariableStringAbsolute(unsigned short length,
+void COrcadWnd::DrawVariableStringAbsolute(unsigned short length,
 	const unsigned char *string, short x, short y, short scale)
 {
 	unsigned short i;
@@ -155,7 +145,7 @@ void DrawVariableStringAbsolute(unsigned short length,
 /* ====================================================================== */
 
 /* verified */
-void DrawVariableStringRelative(unsigned short length,
+void COrcadWnd::DrawVariableStringRelative(unsigned short length,
 	const unsigned char *string, short dx, short dy, short scale)
 {
 	short x;
@@ -189,7 +179,7 @@ void DrawFixedTextAbsolute(const unsigned char *text, short x, short y)
 /* ====================================================================== */
 
 /* verified */
-void DrawFixedTextRelative(const unsigned char *text, short dx, short dy)
+void COrcadWnd::DrawFixedTextRelative(const unsigned char *text, short dx, short dy)
 {
 	short x;
 	short y;
@@ -207,7 +197,7 @@ void DrawFixedTextRelative(const unsigned char *text, short dx, short dy)
 /* ====================================================================== */
 
 /* verified */
-void DrawVariableTextAbsolute(const unsigned char *text,
+void COrcadWnd::DrawVariableTextAbsolute(const unsigned char *text,
 	short x, short y, short scale)
 {
 	if (text[0] == 0) {
@@ -236,7 +226,7 @@ void DrawVariableTextAbsolute(const unsigned char *text,
 /* ====================================================================== */
 
 /* verified */
-void DrawVariableTextRelative(const unsigned char *text,
+void COrcadWnd::DrawVariableTextRelative(const unsigned char *text,
 	short dx, short dy, short scale)
 {
 	short offsetX;
@@ -287,7 +277,7 @@ void DrawVariableTextRelative(const unsigned char *text,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawFixedString(const unsigned char *string, unsigned short length,
+void COrcadWnd::DrawFixedString(const unsigned char *string, unsigned short length,
 	short xa, short ya)
 {
 	short xb;
@@ -374,7 +364,7 @@ void DrawFixedString(const unsigned char *string, unsigned short length,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawFixedCharacter(unsigned char ch, short x, short y,
+void COrcadWnd::DrawFixedCharacter(unsigned char ch, short x, short y,
 	int firstRow, int lastRow, int firstColumn, int lastColumn)
 {
 	int i;
@@ -428,7 +418,7 @@ void DrawFixedCharacter(unsigned char ch, short x, short y,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawVariableCharacter(unsigned char ch, short *x, short *y, short scale)
+void COrcadWnd::DrawVariableCharacter(unsigned char ch, short *x, short *y, short scale)
 {
 	unsigned short tempX;
 	unsigned short tempY;

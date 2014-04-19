@@ -6,37 +6,11 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "state.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PUBLIC DATA DEFINITIONS ------------------------------------------- */
 
-unsigned char Color;
-unsigned short Scale;
-unsigned short Zoom = 0;
-unsigned short ZoomScrollX = 0;
-unsigned short ZoomScrollY = 0;
-unsigned short DrawingPositionX;
-unsigned short DrawingPositionY;
-short WindowStartX;
-short WindowStartY;
-short WindowEndX;
-short WindowEndY;
-unsigned short WindowOriginX;
-unsigned short WindowOriginY;
-long WindowStartX32;
-long WindowStartY32;
-long WindowEndX32;
-long WindowEndY32;
-unsigned long Scale32;
-unsigned long Scale32Div2;
-unsigned char Mode;
-bool CharSetSpecial;
-bool CharSetIEEE;
-unsigned char MapMask;
-int LineDrawingMode;
-int TopOfWindowStateStack;
-unsigned char Palette[16];
-struct WindowState WindowStateStack[8];
 unsigned char MapMaskMap[16] = {
 	0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12, 13, 14, 15
 };
@@ -61,8 +35,6 @@ COLORREF RGBPalette[16] = {
 	RGB(0xfc, 0xfc, 0xfc)		/* white */
 };
 
-HPEN hPen = NULL;
-
 /* -- PRIVATE DATA DEFINITIONS ------------------------------------------ */
 
 /* -- CODE -------------------------------------------------------------- */
@@ -74,7 +46,7 @@ HPEN hPen = NULL;
 /* ====================================================================== */
 
 /* verified */
-void GetScreenResolution(unsigned short *const maxX,
+void COrcadWnd::GetScreenResolution(unsigned short *const maxX,
 	unsigned short *const maxY)
 {
 	*maxX = ResolutionX - 1;
@@ -88,7 +60,7 @@ void GetScreenResolution(unsigned short *const maxX,
 /* ====================================================================== */
 
 /* verified */
-unsigned char GetColor()
+unsigned char COrcadWnd::GetColor()
 {
 	if (CharSetSpecial == true) {
 		CharSetSpecial = false;
@@ -105,7 +77,7 @@ unsigned char GetColor()
 /* ====================================================================== */
 
 /* verified */
-void SetColor(unsigned char index)
+void COrcadWnd::SetColor(unsigned char index)
 {
 	if (index < 16) {
 		Color = Palette[index];
@@ -130,7 +102,7 @@ void SetColor(unsigned char index)
 /* ====================================================================== */
 
 /* verified */
-unsigned short GetScale()
+unsigned short COrcadWnd::GetScale()
 {
 	return Scale;
 }
@@ -142,7 +114,7 @@ unsigned short GetScale()
 /* ====================================================================== */
 
 /* verified */
-void SetScale(unsigned short scale)
+void COrcadWnd::SetScale(unsigned short scale)
 {
 	if ((Zoom==2)&&(scale>1))
 	{
@@ -159,7 +131,7 @@ void SetScale(unsigned short scale)
 /* ====================================================================== */
 
 /* verified */
-void SetWindow(short minX, short minY, short maxX, short maxY)
+void COrcadWnd::SetWindow(short minX, short minY, short maxX, short maxY)
 {
 	WindowStartX = minX;
 	WindowStartY = minY;
@@ -174,7 +146,7 @@ void SetWindow(short minX, short minY, short maxX, short maxY)
 /* ====================================================================== */
 
 /* verified */
-void SetWindowOrigin(unsigned short originX, unsigned short originY)
+void COrcadWnd::SetWindowOrigin(unsigned short originX, unsigned short originY)
 {
 	WindowOriginX = originX;
 	WindowOriginY = originY;
@@ -187,7 +159,7 @@ void SetWindowOrigin(unsigned short originX, unsigned short originY)
 /* ====================================================================== */
 
 /* verified */
-void SaveWindowState()
+void COrcadWnd::SaveWindowState()
 {
 	int tos = TopOfWindowStateStack;
 
@@ -216,7 +188,7 @@ void SaveWindowState()
 /* ====================================================================== */
 
 /* verified */
-void RestoreWindowState()
+void COrcadWnd::RestoreWindowState()
 {
 	int tos = TopOfWindowStateStack;
 
@@ -248,7 +220,7 @@ void RestoreWindowState()
 /* ====================================================================== */
 
 /* verified */
-void SetWindow32(long minX, long minY, long maxX, long maxY,
+void COrcadWnd::SetWindow32(long minX, long minY, long maxX, long maxY,
 	unsigned long scale)
 {
 	WindowStartX32 = minX;
@@ -266,7 +238,7 @@ void SetWindow32(long minX, long minY, long maxX, long maxY,
 /* ====================================================================== */
 
 /* verified */
-void MoveAbsolute(short x, short y)
+void COrcadWnd::MoveAbsolute(short x, short y)
 {
 	DrawingPositionX = x;
 	DrawingPositionY = y;
@@ -292,7 +264,7 @@ void MoveRelative(short dx, short dy)
 /* ====================================================================== */
 
 /* verified */
-void SetModeHighlight()
+void COrcadWnd::SetModeHighlight()
 {
 	int i;
 
@@ -321,7 +293,7 @@ void SetModeHighlight()
 /* ====================================================================== */
 
 /* verified */
-void SetModeNormal()
+void COrcadWnd::SetModeNormal()
 {
 	int i;
 
@@ -341,7 +313,7 @@ void SetModeNormal()
 /* ====================================================================== */
 
 /* verified */
-void SetModeXor()
+void COrcadWnd::SetModeXor()
 {
 	int i;
 

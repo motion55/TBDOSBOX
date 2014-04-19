@@ -7,20 +7,11 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "line.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PRIVATE FUNCTION DECLARATIONS ------------------------------------- */
 
-static bool ClipLine(short *const xa, short *const ya,
-	short *const xb, short *const yb);
-static unsigned char GetOutcode(short x, short y);
-static void DrawSolidLine(unsigned short xa, unsigned short ya,
-	unsigned short xb, unsigned short yb);
-static void DrawDashedLine(unsigned short xa, unsigned short ya,
-	unsigned short xb, unsigned short yb);
-static void DrawWideLine(short xa, short ya, short xb, short yb,
-	short thickness, unsigned char fillType);
-static void DrawGridDots32(long spacing, long divisor);
 
 /* -- CODE -------------------------------------------------------------- */
 
@@ -30,7 +21,7 @@ static void DrawGridDots32(long spacing, long divisor);
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawWideLineAbsolute(short xa, short ya, short xb, short yb)
+void COrcadWnd::DrawWideLineAbsolute(short xa, short ya, short xb, short yb)
 {
 	short dx, dy;
 
@@ -48,7 +39,7 @@ void DrawWideLineAbsolute(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawWideLineRelative(short dx, short dy)
+void COrcadWnd::DrawWideLineRelative(short dx, short dy)
 {
 	unsigned short savedX;
 	unsigned short savedY;
@@ -133,7 +124,7 @@ void DrawWideLineRelative(short dx, short dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawDashedLineAbsolute(short xa, short ya, short xb, short yb)
+void COrcadWnd::DrawDashedLineAbsolute(short xa, short ya, short xb, short yb)
 {
 	DrawingPositionX = xb;
 	DrawingPositionY = yb;
@@ -149,7 +140,7 @@ void DrawDashedLineAbsolute(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawDashedLineRelative(short dx, short dy)
+void COrcadWnd::DrawDashedLineRelative(short dx, short dy)
 {
 	short xa;
 	short ya;
@@ -170,7 +161,7 @@ void DrawDashedLineRelative(short dx, short dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawSolidLineAbsolute(short xa, short ya, short xb, short yb)
+void COrcadWnd::DrawSolidLineAbsolute(short xa, short ya, short xb, short yb)
 {
 	DrawingPositionX = xb;
 	DrawingPositionY = yb;
@@ -186,7 +177,7 @@ void DrawSolidLineAbsolute(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawSolidLineRelative(short dx, short dy)
+void COrcadWnd::DrawSolidLineRelative(short dx, short dy)
 {
 	short xa;
 	short ya;
@@ -207,7 +198,7 @@ void DrawSolidLineRelative(short dx, short dy)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawWideLineAbsolute32(long xa, long ya, long xb, long yb,
+void COrcadWnd::DrawWideLineAbsolute32(long xa, long ya, long xb, long yb,
 	long thickness, unsigned char fillType)
 {
 	unsigned char outcodeA;
@@ -308,7 +299,7 @@ void DrawWideLineAbsolute32(long xa, long ya, long xb, long yb,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawGridDots32(long spacing, long divisor)
+	void COrcadWnd::DrawGridDots32(long spacing, long divisor)
 {
 	long dx;
 	long dy;
@@ -390,7 +381,7 @@ static void LeastSquare(void)
 	y += FitY;
 }
 
-void DrawWideLine(short xa, short ya, short xb, short yb,
+void COrcadWnd::DrawWideLine(short xa, short ya, short xb, short yb,
 	short thickness, unsigned char fillmode)
 {
 	short savedX;
@@ -709,7 +700,7 @@ void DrawWideLine(short xa, short ya, short xb, short yb,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawLineFunction(short xa, short ya, short xb, short yb)
+void COrcadWnd::DrawLineFunction(short xa, short ya, short xb, short yb)
 {
 	if (LineDrawingMode == SOLID) {
 		DrawSolidLineAbsolute(xa, ya, xb, yb);
@@ -724,7 +715,7 @@ void DrawLineFunction(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-bool ClipLine(short *const xa, short *const ya,
+bool COrcadWnd::ClipLine(short *const xa, short *const ya,
 	short *const xb, short *const yb)
 {
 	short dx;
@@ -826,7 +817,7 @@ bool ClipLine(short *const xa, short *const ya,
 /*                                                                        */
 /* ====================================================================== */
 
-unsigned char GetOutcode(short x, short y)
+unsigned char COrcadWnd::GetOutcode(short x, short y)
 {
 	unsigned char outcode = INSIDE;
 
@@ -851,7 +842,7 @@ unsigned char GetOutcode(short x, short y)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawSolidLine(unsigned short xa, unsigned short ya,
+void COrcadWnd::DrawSolidLine(unsigned short xa, unsigned short ya,
 	unsigned short xb, unsigned short yb)
 {
 	BeginDraw();
@@ -877,7 +868,7 @@ void DrawSolidLine(unsigned short xa, unsigned short ya,
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawDashedLine(unsigned short xa, unsigned short ya,
+void COrcadWnd::DrawDashedLine(unsigned short xa, unsigned short ya,
 	unsigned short xb, unsigned short yb)
 {
 	HPEN hDashPen = CreatePen(PS_DOT, 0, RGBPalette[MapMask]);

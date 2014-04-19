@@ -6,23 +6,16 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "rectngle.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- PUBLIC DATA DEFINITIONS ------------------------------------------- */
 
-HDC hdcSavedRect = NULL;
-HBITMAP hbmSavedRect;
 
 /* -- PRIVATE DATA DEFINITIONS ------------------------------------------ */
 
-static short RectangleStartX;
-static short RectangleStartY;
-static short RectangleEndX;
-static short RectangleEndY;
-
 /* -- PRIVATE FUNCTION DECLARATIONS ------------------------------------- */
 
-static int ClipRectangle(short *xa, short *ya, short *xb, short *yb);
 
 /* -- CODE -------------------------------------------------------------- */
 
@@ -32,7 +25,7 @@ static int ClipRectangle(short *xa, short *ya, short *xb, short *yb);
 /*                                                                        */
 /* ====================================================================== */
 
-void ClearRectangle(short xa, short ya, short xb, short yb)
+void COrcadWnd::ClearRectangle(short xa, short ya, short xb, short yb)
 {
 	RECT rect;
 
@@ -62,7 +55,7 @@ void ClearRectangle(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void FillRectangle(short xa, short ya, short xb, short yb)
+void COrcadWnd::FillRectangle(short xa, short ya, short xb, short yb)
 {
 	RECT rect;
 	HBRUSH hBrush;
@@ -112,7 +105,7 @@ void FillRectangle(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void HighlightRectangle(short xa, short ya, short xb, short yb)
+void COrcadWnd::HighlightRectangle(short xa, short ya, short xb, short yb)
 {
 	RECT rect;
 
@@ -142,7 +135,7 @@ void HighlightRectangle(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void SaveRectangle(short xa, short ya, short xb, short yb)
+void COrcadWnd::SaveRectangle(short xa, short ya, short xb, short yb)
 {
 	if (hdcSavedRect)
 	{
@@ -171,7 +164,7 @@ void SaveRectangle(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-void RestoreRectangle()
+void COrcadWnd::RestoreRectangle()
 {
 	if (hdcSavedRect == NULL)
 		return;
@@ -204,7 +197,7 @@ void RestoreRectangle()
 /*                                                                        */
 /* ====================================================================== */
 
-void CopyRectangle(short xa, short ya, short xb, short yb)
+void COrcadWnd::CopyRectangle(short xa, short ya, short xb, short yb)
 {
 	SaveRectangle(xa, ya, xb, yb);
 }
@@ -215,7 +208,7 @@ void CopyRectangle(short xa, short ya, short xb, short yb)
 /*                                                                        */
 /* ====================================================================== */
 
-int ClipRectangle(short *xa, short *ya,	short *xb, short *yb)
+int COrcadWnd::ClipRectangle(short *xa, short *ya, short *xb, short *yb)
 {
 	if ((*xa > *xb) || (*ya > *yb)) {
 		return false;

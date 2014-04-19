@@ -6,15 +6,12 @@
 
 /* -- HEADER FILES ------------------------------------------------------ */
 
-#include "bitmap.h"
+#include "stdafx.h"
+#include "OrcadWnd.h"
 
 /* -- CODE -------------------------------------------------------------- */
 
-#define	PUTPIXEL(a, b)	SetPixel(hdcMemoryBuffer, a, b, RGBPalette[MapMask]);
-
-static short clipxa, clipya, clipxb, clipyb;
-
-static void ClpPixel(short x, short y)
+void COrcadWnd::ClpPixel(short x, short y)
 {
 	if (x >= clipxa && x <= clipxb && y >= clipya && y <= clipyb)
 	{
@@ -22,7 +19,7 @@ static void ClpPixel(short x, short y)
 	}
 }
 
-static void Translate2(short *const x, short *const y)
+void COrcadWnd::Translate2(short *const x, short *const y)
 {
 	*x -= WindowStartX;
 	*y -= WindowStartY;
@@ -42,7 +39,7 @@ static void Translate2(short *const x, short *const y)
 /*                                                                        */
 /* ====================================================================== */
 
-void DrawBitmapRelative(const unsigned char *bitmap, unsigned short rows,
+void COrcadWnd::DrawBitmapRelative(const unsigned char *bitmap, unsigned short rows,
 	unsigned short cols, short dx, short dy, unsigned short xsize,
 	unsigned short ysize, unsigned char function)
 {
